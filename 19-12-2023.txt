@@ -1,0 +1,30 @@
+Write a blog on Difference between HTTP1.1 vs HTTP2
+
+        http is application protocol and standard for the communication in world wide web since 1989. 
+    there has been some revision in protocol. such are 1997 HTTP1.1 and 2015 HTTP 2.
+
+                HTTP 1.1                               
+    1)  this works on textual format       
+    2)  head of line blocking is present in this to block all request until the all resources are drawn
+    3) it uses request resources inlining for multiple pages
+    4) compresses the data by itself
+
+                HTTP 2
+    1) it works on binary format
+    2) allows multiplexing for multiple requests
+    3)usesPUSH frame for Multiple pages
+    4)uses HPACK for data compression
+
+Write a blog about objects and its internal representation in Javascript
+  
+        object contains any combination of data-types
+        it may  have a function as a member, and thatis called as method
+
+        let obj ={
+            "name": 'rajesh',
+            object may contain any data types and 
+        }
+         the above is the model of object
+         it contains object name, inside that keys and values
+         the object  is called in the javascript  in such 
+                  objectname.key // output is value 
