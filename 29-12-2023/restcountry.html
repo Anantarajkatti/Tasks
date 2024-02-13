@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <title> Countries </title>
+        
+
+    </head>
+
+    <body>
+        <h1> Countries </h1>
+        <p>there are 250 countries in the list</p>
+        <p>In the console country, region, subregion, population, Flag are shown</p>
+        <p id="unique"></p>
+        <script>
+            const xhr= new XMLHttpRequest();
+            const url='https://restcountries.com/v3.1/all';
+            var asiacountries=[]
+            var twolkPopulation=[]
+            var dollorCtry=[]
+            xhr.onreadystatechange=function()
+            {
+                if(xhr.readyState===XMLHttpRequest.DONE)
+                {
+                    if(xhr.status===200)
+                    {
+                        const response=JSON.parse(xhr.responseText);
+
+                       
+ console.log('------------------------------Asian countries-----------------------------------')                       
+                        asiacountries= response.filter(getAsia)
+                        for(var i=0;i<asiacountries.length;i++)
+                        {
+                        console.log(asiacountries[i].name.common)
+                        }
+
+
+console.log('---------------------------population of countries below two lakhs---------------------------')
+
+
+                        twolkPopulation=response.filter(getCountries)
+                        for(var i=0;i<twolkPopulation.length;i++)
+                        {
+                        console.log(twolkPopulation[i].name.common +'------- '+ twolkPopulation[i].population)
+                        console.log(twolkPopulation[i].currencies)
+                        
+                        }
+
+console.log('----------------------- using For each to print name, capital, flag,-----------------------------------------')
+
+response.forEach(getValues)
+
+console.log('---------------------------total Population using reduce function-----------------------------------')
+
+console.log('The Total Population of all Countries is------'+response.reduce(totalPoulation,0))
+
+console.log('--------------------------Dollor using countries---------------------------------')
+
+  dollorCtry= response.filter(getDollorCOuntries)
+  for(var i=0;i<dollorCtry.length;i++)
+  {
+  console.log(dollorCtry[i].name.common)
+  }
+                      
+                       
+                   
+                        };
+                        
+                        
+                    
+                }
+                    else
+                    {
+                        console.error("there was problem with the request.")
+                    }
+
+
+
+                    function getAsia(response)
+                   {
+           
+                           
+                            if(response.continents[0]==="Asia")
+                            {
+                             return response.name.common
+                            }
+                        
+                    }   
+                    
+                   function  getCountries(response)
+                   {
+                    if(response.population<200000 )
+                    {
+                        return response.name.common
+                    }
+                   }
+
+                   function getValues(item,index)
+                   {
+                    console.log(index)
+                    console.log('country'+'--- '+ item.name.common)
+                    console.log('capital'+'--- '+item.capital)
+                    console.log('Flag'+'--- '+item.flag)
+                   }
+
+                   function totalPoulation(total, temp)
+                       {
+                          return total+= temp.population 
+                       }
+
+                       function getDollorCOuntries(response)
+                       {
+                        if(response.currencies.USD )
+                        {
+                            return response.name.common
+                        }
+                       }
+            }
+               
+            
+            
+            xhr.open('GET',url,true)
+
+            xhr.send()
+        </script>
+    </body>
+</html>
